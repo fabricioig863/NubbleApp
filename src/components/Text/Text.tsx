@@ -82,7 +82,7 @@ type TextVariants =
   estilos de texto específicos, incluindo informações sobre tamanho de fonte e 
   altura de linha.
 */
-const $fontSizes: Record<TextVariants, TextStyle> = {
+export const $fontSizes: Record<TextVariants, TextStyle> = {
   headingLarge: {fontSize: 32, lineHeight: 38.4},
   headingMedium: {fontSize: 22, lineHeight: 26.4},
   headingSmall: {fontSize: 18, lineHeight: 23.4},

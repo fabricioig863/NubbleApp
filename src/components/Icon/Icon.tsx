@@ -1,4 +1,5 @@
 import React from 'react';
+import {Pressable} from 'react-native';
 import {ArrowLeftIcon} from '../../assets/icons/ArrowLeftIcon';
 import {ArrowRightIcon} from '../../assets/icons/ArrowRightIcon';
 import {BellIcon} from '../../assets/icons/BellIcon';
@@ -28,20 +29,32 @@ import {SettingsIcon} from '../../assets/icons/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/TrashIcon';
 import {useAppTheme} from '../../hooks/useAppTheme';
 import {ThemeColors} from '../../themes/themes';
-
-export interface IconBase {
-  size?: number;
-  color?: string;
-}
+import {Text} from '../Text/Text';
 
 interface Props {
   name: IconName;
   color?: ThemeColors;
   size?: number;
+  onPress?: () => void;
 }
-export function Icon({name, color = 'backgroundContrast', size}: Props) {
+export function Icon({
+  name,
+  onPress,
+  color = 'backgroundContrast',
+  size,
+}: Props) {
   const {colors} = useAppTheme();
   const SVGIcon = iconRegistry[name];
+
+  if (onPress) {
+    return (
+      <Pressable hitSlop={10} onPress={onPress}>
+        <Text>
+          <SVGIcon color={colors[color]} size={size} />
+        </Text>
+      </Pressable>
+    );
+  }
 
   return <SVGIcon color={colors[color]} size={size} />;
 }
@@ -77,5 +90,4 @@ const iconRegistry = {
 };
 
 type IconType = typeof iconRegistry;
-
 type IconName = keyof IconType;

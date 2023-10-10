@@ -29,7 +29,6 @@ import {SettingsIcon} from '../../assets/icons/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/TrashIcon';
 import {useAppTheme} from '../../hooks/useAppTheme';
 import {ThemeColors} from '../../themes/themes';
-import {Text} from '../Text/Text';
 
 interface Props {
   name: IconName;
@@ -37,6 +36,7 @@ interface Props {
   size?: number;
   onPress?: () => void;
 }
+
 export function Icon({
   name,
   onPress,
@@ -49,9 +49,7 @@ export function Icon({
   if (onPress) {
     return (
       <Pressable hitSlop={10} onPress={onPress}>
-        <Text>
-          <SVGIcon color={colors[color]} size={size} />
-        </Text>
+        <SVGIcon color={colors[color]} size={size} />
       </Pressable>
     );
   }

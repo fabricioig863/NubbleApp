@@ -4,10 +4,22 @@ import {Screen} from '../../../components/Screen/Screen';
 import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootParamList} from '../../../routes/Routes';
 
-export function SinupScreen() {
+type SinupProps = NativeStackScreenProps<RootParamList, 'SinupScreen'>;
+
+export function SinupScreen({navigation}: SinupProps) {
   function submitForm() {
     //implementar quando chegarmos no react hook form
+    navigation.navigate('SuccessScreen', {
+      title: 'Sua conta foi criada com sucesso!',
+      description: 'Agora é só fazer login na nossa plataforma',
+      icon: {
+        name: 'checkRound',
+        color: 'success',
+      },
+    });
   }
   return (
     <Screen canGoBack scrollable>

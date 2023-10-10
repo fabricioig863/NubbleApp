@@ -29,8 +29,10 @@ import {SettingsIcon} from '../../assets/icons/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/TrashIcon';
 import {useAppTheme} from '../../hooks/useAppTheme';
 import {ThemeColors} from '../../themes/themes';
+import {MessageRoundIcon} from '../../assets/icons/MessageRoundIcon';
+import {CheckRoundIcon} from '../../assets/icons/CheckRoundIcon';
 
-interface Props {
+export interface IconProps {
   name: IconName;
   color?: ThemeColors;
   size?: number;
@@ -42,7 +44,7 @@ export function Icon({
   onPress,
   color = 'backgroundContrast',
   size,
-}: Props) {
+}: IconProps) {
   const {colors} = useAppTheme();
   const SVGIcon = iconRegistry[name];
 
@@ -85,6 +87,8 @@ const iconRegistry = {
   search: SearchIcon,
   settings: SettingsIcon,
   trash: TrashIcon,
+  messageRound: MessageRoundIcon,
+  checkRound: CheckRoundIcon,
 };
 
 type IconType = typeof iconRegistry;

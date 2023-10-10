@@ -4,8 +4,21 @@ import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
 import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootParamList} from '../../../routes/Routes';
+import {TouchableOpacityBox} from '../../../components/Box/Box';
 
-export function LoginScreen() {
+type LoginProps = NativeStackScreenProps<RootParamList, 'LoginScreen'>;
+
+export function LoginScreen({navigation}: LoginProps) {
+  function submitForm() {
+    navigation.navigate('SinupScreen');
+  }
+
+  function toGoForgotPasswordScreen() {
+    navigation.navigate('ForgotPasswordScreen');
+  }
+
   return (
     <Screen scrollable>
       <Text marginBottom="s8" preset="headingLarge">
@@ -29,12 +42,19 @@ export function LoginScreen() {
         boxProps={{mb: 's10'}}
       />
 
-      <Text color="primary" preset="paragraphSmall" bold>
-        Esqueci minha senha
-      </Text>
+      <TouchableOpacityBox onPress={toGoForgotPasswordScreen}>
+        <Text color="primary" preset="paragraphSmall" bold>
+          Esqueci minha senha
+        </Text>
+      </TouchableOpacityBox>
 
       <Button title="Entrar" mt="s48" />
-      <Button title="Criar uma conta" preset="outline" mt="s12" />
+      <Button
+        onPress={submitForm}
+        title="Criar uma conta"
+        preset="outline"
+        mt="s12"
+      />
     </Screen>
   );
 }

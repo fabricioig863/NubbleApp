@@ -3,8 +3,22 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SinupScreen} from '../screens/auth/SinupScreen/SinupScreen';
 import {LoginScreen} from '../screens/auth/LoginScreen/LoginScreen';
+import {SuccessScreen} from '../screens/auth/SuccessScreen/SuccessScreen';
+import {ForgotPasswordScreen} from '../screens/auth/ForgotPasswordScreen/ForgotPasswordScreen';
+import {IconProps} from '../components/Icon/Icon';
 
-const Stack = createNativeStackNavigator();
+export type RootParamList = {
+  SinupScreen: undefined;
+  LoginScreen: undefined;
+  SuccessScreen: {
+    title: string;
+    description: string;
+    icon: Pick<IconProps, 'name' | 'color'>;
+  };
+  ForgotPasswordScreen: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootParamList>();
 
 export function Router() {
   return (
@@ -12,10 +26,16 @@ export function Router() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          fullScreenGestureEnabled: true,
         }}
-        initialRouteName="Sinup">
-        <Stack.Screen name="Sinup" component={SinupScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        initialRouteName="LoginScreen">
+        <Stack.Screen name="SinupScreen" component={SinupScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
+        <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

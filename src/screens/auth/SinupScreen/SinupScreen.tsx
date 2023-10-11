@@ -4,15 +4,17 @@ import {Screen} from '../../../components/Screen/Screen';
 import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
+import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootParamList} from '../../../routes/Routes';
+import {RootStackParamList} from '../../../routes/Routes';
 
-type SinupProps = NativeStackScreenProps<RootParamList, 'SinupScreen'>;
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SinupScreen'>;
 
-export function SinupScreen({navigation}: SinupProps) {
+export function SinupScreen({navigation}: ScreenProps) {
+  const {reset} = useResetNavigationSuccess();
+
   function submitForm() {
-    //implementar quando chegarmos no react hook form
-    navigation.navigate('SuccessScreen', {
+    reset({
       title: 'Sua conta foi criada com sucesso!',
       description: 'Agora é só fazer login na nossa plataforma',
       icon: {

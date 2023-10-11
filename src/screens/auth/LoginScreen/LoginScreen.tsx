@@ -5,17 +5,16 @@ import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
 import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootParamList} from '../../../routes/Routes';
-import {TouchableOpacityBox} from '../../../components/Box/Box';
+import {RootStackParamList} from '../../../routes/Routes';
 
-type LoginProps = NativeStackScreenProps<RootParamList, 'LoginScreen'>;
+type LoginProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
 
 export function LoginScreen({navigation}: LoginProps) {
-  function submitForm() {
+  function navigateToSignUpScreen() {
     navigation.navigate('SinupScreen');
   }
 
-  function toGoForgotPasswordScreen() {
+  function navigateToForgotPasswordScreen() {
     navigation.navigate('ForgotPasswordScreen');
   }
 
@@ -42,15 +41,17 @@ export function LoginScreen({navigation}: LoginProps) {
         boxProps={{mb: 's10'}}
       />
 
-      <TouchableOpacityBox onPress={toGoForgotPasswordScreen}>
-        <Text color="primary" preset="paragraphSmall" bold>
-          Esqueci minha senha
-        </Text>
-      </TouchableOpacityBox>
+      <Text
+        onPress={navigateToForgotPasswordScreen}
+        color="primary"
+        preset="paragraphSmall"
+        bold>
+        Esqueci minha senha
+      </Text>
 
       <Button title="Entrar" mt="s48" />
       <Button
-        onPress={submitForm}
+        onPress={navigateToSignUpScreen}
         title="Criar uma conta"
         preset="outline"
         mt="s12"

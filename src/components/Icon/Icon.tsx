@@ -31,12 +31,14 @@ import {useAppTheme} from '../../hooks/useAppTheme';
 import {ThemeColors} from '../../themes/themes';
 import {MessageRoundIcon} from '../../assets/icons/MessageRoundIcon';
 import {CheckRoundIcon} from '../../assets/icons/CheckRoundIcon';
+import {Box, BoxProps} from '../Box/Box';
 
 export interface IconProps {
   name: IconName;
   color?: ThemeColors;
   size?: number;
   onPress?: () => void;
+  boxProps?: BoxProps;
 }
 
 export function Icon({
@@ -44,19 +46,26 @@ export function Icon({
   onPress,
   color = 'backgroundContrast',
   size,
+  boxProps,
 }: IconProps) {
   const {colors} = useAppTheme();
   const SVGIcon = iconRegistry[name];
 
   if (onPress) {
     return (
-      <Pressable hitSlop={10} onPress={onPress}>
-        <SVGIcon color={colors[color]} size={size} />
-      </Pressable>
+      <Box {...boxProps}>
+        <Pressable hitSlop={10} onPress={onPress}>
+          <SVGIcon color={colors[color]} size={size} />
+        </Pressable>
+      </Box>
     );
   }
 
-  return <SVGIcon color={colors[color]} size={size} />;
+  return (
+    <Box {...boxProps}>
+      <SVGIcon color={colors[color]} size={size} />
+    </Box>
+  );
 }
 
 const iconRegistry = {

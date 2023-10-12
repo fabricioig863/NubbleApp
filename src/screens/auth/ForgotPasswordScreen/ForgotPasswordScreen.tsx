@@ -12,12 +12,12 @@ type ScreenProps = NativeStackScreenProps<
   'ForgotPasswordScreen'
 >;
 
-export function ForgotPasswordScreen({navigation}: ScreenProps) {
+export function ForgotPasswordScreen(params: ScreenProps) {
   const {reset} = useResetNavigationSuccess();
 
   function submit() {
     reset({
-      title: `Enviamos as instruções ${'\n'}para seu e-mail`,
+      title: `Enviamos as instruções para seu ${'\n'}e-mail`,
       description:
         'Clique no link enviado no seu e-mail para recuperar sua senha',
       icon: {

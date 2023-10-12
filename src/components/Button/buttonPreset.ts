@@ -31,7 +31,7 @@ export const buttonPresets: Record<
   outline: {
     default: {
       container: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: 'primary',
       },
       content: 'primary',

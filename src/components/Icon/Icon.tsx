@@ -37,7 +37,7 @@ export interface IconProps {
   name: IconName;
   color?: ThemeColors;
   size?: number;
-  onPress?: () => void;
+  onPress?(): void;
   boxProps?: BoxProps;
 }
 

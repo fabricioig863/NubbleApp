@@ -29,7 +29,6 @@ export function LoginScreen({navigation}: LoginProps) {
       </Text>
 
       <TextInput
-        errorMessage="Mensagem de erro"
         label="E-mail"
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}

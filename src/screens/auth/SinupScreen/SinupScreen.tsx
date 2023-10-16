@@ -9,6 +9,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../routes/Routes';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert} from 'react-native';
+import {FormTextInput} from '../../../components/Form/FormTextInput';
+import {FormPasswordInput} from '../../../components/Form/FormPasswordInput';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SinupScreen'>;
 
@@ -32,7 +34,7 @@ export function SinupScreen({navigation}: ScreenProps) {
   });
 
   function submitForm({username, fullName, email, password}: SinupFormType) {
-    const data = Alert.alert(
+    Alert.alert(
       `${username} ${'\n'} ${fullName} ${'\n'} ${email} ${'\n'} ${password}`,
     );
 
@@ -51,44 +53,28 @@ export function SinupScreen({navigation}: ScreenProps) {
         Criar uma conta
       </Text>
 
-      <Controller
+      <FormTextInput
         control={control}
+        label="Seu username"
         name="username"
-        rules={{
-          required: 'Digite um username válido',
-        }}
-        render={({field: {onChange, value}, fieldState: {error}}) => (
-          <TextInput
-            errorMessage={error?.message}
-            label="Seu username"
-            value={value}
-            onChangeText={onChange}
-            placeholder="@"
-            boxProps={{mb: 's20'}}
-          />
-        )}
+        rules={{required: 'Digite um username válido'}}
+        placeholder="@"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormTextInput
         control={control}
+        label="Nome completo"
         name="fullName"
-        rules={{
-          required: 'Digite um nome válido',
-        }}
-        render={({field: {onChange, value}, fieldState: {error}}) => (
-          <TextInput
-            value={value}
-            errorMessage={error?.message}
-            onChangeText={onChange}
-            label="Nome completo"
-            placeholder="Digite seu nome completo"
-            boxProps={{mb: 's20'}}
-          />
-        )}
+        autoCapitalize="words"
+        rules={{required: 'Digite um nome válido'}}
+        placeholder="Digite seu nome completo"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormTextInput
         control={control}
+        label="E-mail"
         name="email"
         rules={{
           required: 'E-mail obrigatorio',
@@ -97,21 +83,16 @@ export function SinupScreen({navigation}: ScreenProps) {
             message: 'Digite um e-mail válido',
           },
         }}
-        render={({field: {onChange, value}, fieldState: {error}}) => (
-          <TextInput
-            errorMessage={error?.message}
-            value={value}
-            onChangeText={onChange}
-            label="E-mail"
-            placeholder="Digite seu E-mail"
-            boxProps={{mb: 's20'}}
-          />
-        )}
+        placeholder="Digite seu e-mail"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormPasswordInput
         control={control}
+        label="Senha"
         name="password"
+        placeholder="Digite uma senha válida"
+        boxProps={{mb: 's48'}}
         rules={{
           required: 'Digite uma senha válida',
           minLength: {
@@ -119,16 +100,6 @@ export function SinupScreen({navigation}: ScreenProps) {
             message: 'Senha deve conter no minimo 8 caracteres',
           },
         }}
-        render={({field: {onChange, value}, fieldState: {error}}) => (
-          <PasswordInput
-            errorMessage={error?.message}
-            value={value}
-            onChangeText={onChange}
-            label="Senha"
-            placeholder="Digite uma senha válida"
-            boxProps={{mb: 's48'}}
-          />
-        )}
       />
 
       <Button

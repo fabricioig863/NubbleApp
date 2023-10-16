@@ -8,6 +8,8 @@ import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../routes/Routes';
 import {Alert} from 'react-native';
+import {FormTextInput} from '../../../components/Form/FormTextInput';
+import {FormPasswordInput} from '../../../components/Form/FormPasswordInput';
 
 type LoginFormType = {
   email: string;
@@ -46,48 +48,34 @@ export function LoginScreen({navigation}: LoginProps) {
         Digite seu e-mail e senha para entrar
       </Text>
 
-      <Controller
+      <FormTextInput
         control={control}
+        label="E-mail"
         name="email"
         rules={{
           required: 'E-mail obrigatorio',
           pattern: {
             value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            message: 'E-mail inválido',
+            message: 'Digite um e-mail válido',
           },
         }}
-        render={({field: {onChange, value}, fieldState: {error}}) => (
-          <TextInput
-            errorMessage={error?.message}
-            value={value}
-            onChangeText={onChange}
-            label="Digite seu E-mail"
-            placeholder="Digite seu E-mail"
-            boxProps={{mb: 's20'}}
-          />
-        )}
+        placeholder="Digite seu e-mail"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormPasswordInput
         control={control}
+        label="Senha"
         name="password"
+        placeholder="Digite uma senha válida"
+        boxProps={{mb: 's48'}}
         rules={{
-          required: 'Senha obrigatória',
+          required: 'Digite uma senha válida',
           minLength: {
             value: 8,
             message: 'Senha deve conter no minimo 8 caracteres',
           },
         }}
-        render={({field: {onChange, value}, fieldState: {error}}) => (
-          <PasswordInput
-            errorMessage={error?.message}
-            value={value}
-            onChangeText={onChange}
-            label="Senha"
-            placeholder="Digite sua Senha"
-            boxProps={{mb: 's10'}}
-          />
-        )}
       />
 
       <Text
@@ -98,10 +86,6 @@ export function LoginScreen({navigation}: LoginProps) {
         Esqueci minha senha
       </Text>
 
-      {/* 
-          O handleSubmit vai pegar os valores do meu formulário e 
-          vai jogar dentro do meu submitForm.
-        */}
       <Button
         disabled={!formState.isValid}
         onPress={handleSubmit(submitForm)}

@@ -1,14 +1,16 @@
 import React from 'react';
 import {Controller, FieldValues, UseControllerProps} from 'react-hook-form';
-import {PasswordInput} from '../PasswordInput/PasswordInput';
-import {TextInputProps} from '../TextInput/TextInput';
+import {
+  PasswordInput,
+  PasswordInputProps,
+} from '../PasswordInput/PasswordInput';
 
 export function FormPasswordInput<FormTypePassword extends FieldValues>({
   control,
   name,
   rules,
-  ...formPasswordInput
-}: TextInputProps & UseControllerProps<FormTypePassword>) {
+  ...passwordInputProps
+}: PasswordInputProps & UseControllerProps<FormTypePassword>) {
   return (
     <Controller
       control={control}
@@ -19,7 +21,7 @@ export function FormPasswordInput<FormTypePassword extends FieldValues>({
           value={value}
           errorMessage={error?.message}
           onChangeText={onChange}
-          {...formPasswordInput}
+          {...passwordInputProps}
         />
       )}
     />

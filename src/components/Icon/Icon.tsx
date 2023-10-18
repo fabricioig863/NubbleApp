@@ -27,11 +27,11 @@ import {ProfileIcon} from '../../assets/icons/ProfileIcon';
 import {SearchIcon} from '../../assets/icons/SearchIcon';
 import {SettingsIcon} from '../../assets/icons/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/TrashIcon';
-import {useAppTheme} from '../../hooks/useAppTheme';
+import {useAppTheme} from '@hooks';
 import {ThemeColors} from '../../themes/themes';
 import {MessageRoundIcon} from '../../assets/icons/MessageRoundIcon';
 import {CheckRoundIcon} from '../../assets/icons/CheckRoundIcon';
-import {Box, BoxProps} from '../Box/Box';
+import {Box, BoxProps} from '@components';
 
 export interface IconProps {
   name: IconName;

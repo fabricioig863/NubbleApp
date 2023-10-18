@@ -28,11 +28,7 @@ import {SearchIcon} from '../../assets/icons/SearchIcon';
 import {SettingsIcon} from '../../assets/icons/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/TrashIcon';
 import {useAppTheme} from '@hooks';
-<<<<<<< Updated upstream
-import {ThemeColors} from '../../themes/themes';
-=======
 import {ThemeColors} from '@themes';
->>>>>>> Stashed changes
 import {MessageRoundIcon} from '../../assets/icons/MessageRoundIcon';
 import {CheckRoundIcon} from '../../assets/icons/CheckRoundIcon';
 import {Box, BoxProps} from '@components';

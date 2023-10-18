@@ -3,7 +3,6 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {Text} from '../../../components/Text/Text';
 import {Screen} from '../../../components/Screen/Screen';
 import {Button} from '../../../components/Button/Button';
-import {useResetNavigationSuccess} from '../../../hooks/useResetNavigationSuccess';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../routes/Routes';
 import {useForm} from 'react-hook-form';
@@ -14,8 +13,7 @@ import {SignUpSchema, signUpSchema} from './signUpSchema';
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SinupScreen'>;
 
 export function SinupScreen({navigation}: ScreenProps) {
-  const {reset} = useResetNavigationSuccess();
-  const {control, formState, handleSubmit} = useForm<SignUpSchema>({
+  const {control, formState, handleSubmit, reset} = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: '',
@@ -28,7 +26,7 @@ export function SinupScreen({navigation}: ScreenProps) {
 
   function submitForm(formValueProps: SignUpSchema) {
     console.log(formValueProps);
-
+    reset();
     // reset({
     //   title: 'Sua conta foi criada com sucesso!',
     //   description: 'Agora é só fazer login na nossa plataforma',

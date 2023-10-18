@@ -12,7 +12,7 @@ import {
   spacingShorthand,
   SpacingShorthandProps,
 } from '@shopify/restyle';
-import {Theme} from '../../themes/themes';
+import {Theme} from '@themes';
 import {
   TouchableOpacity,
   TouchableOpacityProps as RNTouchableOpacityProps,

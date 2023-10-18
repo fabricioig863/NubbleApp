@@ -1,8 +1,8 @@
 import React from 'react';
 import {ThemeProvider} from '@shopify/restyle';
-import {theme} from './src/themes/themes';
+import {theme} from '@themes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Router} from './src/routes/Routes';
+import {Router} from '@routes';
 
 export default function App() {
   return (

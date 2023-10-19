@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
-import {$fontFamily, $fontSizes, Box, BoxProps, Text} from '@components';
+import {Box, BoxProps, Text} from '@components';
+import {$fontFamily, $fontSizes} from '../Text/Text';
 import {useAppTheme} from '@hooks';
 import {
   Pressable,

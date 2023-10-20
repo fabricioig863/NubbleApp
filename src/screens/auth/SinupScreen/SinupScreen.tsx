@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {zodResolver} from '@hookform/resolvers/zod';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+// import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useForm} from 'react-hook-form';
 
 import {
@@ -12,13 +12,13 @@ import {
   FormTextInput,
 } from '@components';
 
-import {RootStackParamList} from '../../../routes/Routes';
+// import {RootStackParamList} from '../../../routes/Routes';
 
 import {SignUpSchema, signUpSchema} from './signUpSchema';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SinupScreen'>;
+// type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SinupScreen'>;
 
-export function SinupScreen({navigation}: ScreenProps) {
+export function SinupScreen() {
   const {control, formState, handleSubmit, reset} = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {

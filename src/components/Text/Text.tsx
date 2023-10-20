@@ -1,6 +1,8 @@
 import React from 'react';
 import {TextStyle} from 'react-native';
+
 import {createText} from '@shopify/restyle';
+
 import {Theme} from '@themes';
 
 const SRText = createText<Theme>();
@@ -61,7 +63,7 @@ function getFontFamily(
   }
 }
 
-/* 
+/*
   Define um tipo que é uma união de várias strings que representam diferentes estilos
   de texto disponiveis.
 */
@@ -75,11 +77,11 @@ type TextVariants =
   | 'paragraphCaption'
   | 'paragraphCaptionSmall';
 
-/* 
+/*
   O Sifrão na frente da variável deixa explicito que é uma propriedade de estilo.
-  
-  Define um objeto $fontSizes que mapeia os valores do tipo TextVariants para 
-  estilos de texto específicos, incluindo informações sobre tamanho de fonte e 
+
+  Define um objeto $fontSizes que mapeia os valores do tipo TextVariants para
+  estilos de texto específicos, incluindo informações sobre tamanho de fonte e
   altura de linha.
 */
 export const $fontSizes: Record<TextVariants, TextStyle> = {

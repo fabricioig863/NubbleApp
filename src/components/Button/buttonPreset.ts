@@ -1,5 +1,7 @@
-import { ThemeColors } from '@themes';
+import {ThemeColors} from '@themes';
+
 import {TouchableOpacityBoxProps} from '../Box/Box';
+
 import {ButtonPreset} from './Button';
 
 interface ButtonUI {

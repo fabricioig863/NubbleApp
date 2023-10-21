@@ -1,7 +1,7 @@
 <p align="center">
   <img
     width="400"
-    src="src/assets/icons/logo-black.svg" 
+    src="src/assets/icons/logo.svg" 
     alt="Nubble App logo" />
 </p>
 

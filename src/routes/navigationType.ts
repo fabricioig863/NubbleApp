@@ -12,3 +12,6 @@ declare global {
 
 export type AppScreenProps<RouteName extends keyof AppStackParamList> =
   NativeStackScreenProps<AppStackParamList, RouteName>;
+
+export type AuthScreenProps<RouteName extends keyof RootStackParamList> =
+  NativeStackScreenProps<RootStackParamList, RouteName>;

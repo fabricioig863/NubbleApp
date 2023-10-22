@@ -19,7 +19,7 @@ export type RootStackParamList = {
 };
 
 export function Router() {
-  const authenticated = true;
+  const authenticated = false;
 
   return (
     <NavigationContainer>

@@ -11,8 +11,8 @@ import {
 } from '@screens';
 
 export type AuthStackParamList = {
-  SinupScreen: undefined;
   LoginScreen: undefined;
+  SinupScreen: undefined;
   SuccessScreen: {
     title: string;
     description: string;

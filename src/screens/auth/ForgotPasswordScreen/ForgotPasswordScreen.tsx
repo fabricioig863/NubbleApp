@@ -5,6 +5,8 @@ import {useForm} from 'react-hook-form';
 
 import {Button, FormTextInput, Screen, Text} from '@components';
 
+// import {AuthScreenProps} from '@routes';
+
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,

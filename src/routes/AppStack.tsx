@@ -3,9 +3,8 @@ import React from 'react';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {SettingsScreen} from '@screens';
-
 import {AppTabBottomTabParamList, AppTabNavigator} from '@routes';
+import {SettingsScreen} from '@screens';
 
 export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabBottomTabParamList>;

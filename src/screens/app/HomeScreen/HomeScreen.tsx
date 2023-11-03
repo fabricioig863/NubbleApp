@@ -1,23 +1,31 @@
 import React, {useEffect, useState} from 'react';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 
-import {Button, Screen, Text} from '@components';
-import {AppTabScreenProps} from '@routes';
 import {Post, postService} from '@domain';
 
-export function HomeScreen({navigation}: AppTabScreenProps<'HomeScreen'>) {
+import {PostItem, Screen} from '@components';
+// import {AppTabScreenProps} from '@routes';
+
+// type Props = AppTabScreenProps<'HomeScreen'>;
+
+export function HomeScreen() {
   const [postList, setPosList] = useState<Post[]>([]);
 
   useEffect(() => {
     postService.getList().then(list => setPosList(list));
   }, []);
 
+  function renderItem({item}: ListRenderItemInfo<Post>) {
+    return <PostItem post={item} />;
+  }
+
   return (
     <Screen>
-      {postList.map(post => (
-        <>
-          <Text key={post.id}>{post.author.name}</Text>
-        </>
-      ))}
+      <FlatList
+        data={postList}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+      />
     </Screen>
   );
 }

@@ -41,6 +41,7 @@ export function SinupScreen() {
     //   },
     // });
   }
+
   return (
     <Screen canGoBack scrollable>
       <Text marginBottom="s32" preset="headingLarge">

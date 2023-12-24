@@ -5,6 +5,7 @@ import {Post} from './postType';
 async function getList(): Promise<Post[]> {
   const postPageAPI = await postAPi.getList();
 
+  console.log(postPageAPI);
   return postPageAPI.data.map(postAdapter.toPost);
 }
 

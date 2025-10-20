@@ -1,8 +1,7 @@
 import { ThemeProvider } from '@shopify/restyle';
 import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Box } from './src/components/Box/Box';
-import { Button } from './src/components/Button/Button';
+import { Icon } from './src/components/Icon/Icon';
 import { Text } from './src/components/Text/Text';
 import { theme } from './src/theme/theme';
 
@@ -15,18 +14,9 @@ function App() {
             <Text preset="headingLarge" italic>
               CoffStack
             </Text>
-            <Box marginBottom="s24">
-              <Button title="Entrar" />
-            </Box>
-            <Button loading title="Carregando..." />
 
-            <Box mt="s20">
-              <Button
-                title="Entrar"
-                marginBottom="s12"
-                backgroundColor="grayBlack"
-              />
-            </Box>
+            <Icon name="eyeOn" />
+            <Icon name="eyeOff" />
           </View>
         </SafeAreaView>
       </SafeAreaProvider>

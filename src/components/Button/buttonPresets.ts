@@ -32,9 +32,10 @@ export const buttonPresets: Record<
   outline: {
     default: {
       container: {
-        backgroundColor: 'primary',
+        borderWidth: 1,
+        borderColor: 'primary',
       },
-      content: 'primaryContrast',
+      content: 'primary',
     },
     disabled: {
       container: {

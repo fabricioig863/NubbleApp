@@ -1,61 +1,62 @@
-import React, { useState } from 'react';
-import { Box, TouchableOpacityBox } from '../../../components/Box/Box';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
 import { Button } from '../../../components/Button/Button';
-import { Icon } from '../../../components/Icon/Icon';
+import { PasswordInput } from '../../../components/PasswordInput/PasswordInput';
 import { Screen } from '../../../components/Screen/Screen';
 import { Text } from '../../../components/Text/Text';
 import { TextInput } from '../../../components/TextInput/TextInput';
+import { RootStackParamList } from '../../../routes/Routes';
 
-export function LoginScreen() {
-  const [passwordValue, setPasswordValue] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+type NavigationProps = NativeStackScreenProps<
+  RootStackParamList,
+  'LoginScreen'
+>;
 
-  function handlePasswordChange(text: string) {
-    setPasswordValue(text);
+export function LoginScreen({ navigation }: NavigationProps) {
+  function navigationToSignUp() {
+    navigation.navigate('SignUpScreen');
   }
 
-  function togglePasswordVisibility() {
-    setIsPasswordVisible(prev => !prev);
+  function navigationToForgotPassword() {
+    navigation.navigate('ForgotPasswordScreen');
   }
 
   return (
-    <Screen scrollable>
-      <Box paddingHorizontal="s24">
-        <Text preset="headingLarge">Olá!</Text>
-        <Text mb="s8" preset="paragraphLarge" marginBottom="s40">
-          Digite seu e-mail e senha para entrar
-        </Text>
+    <Screen scrollable paddingHorizontal="s24">
+      <Text preset="headingLarge">Olá!</Text>
+      <Text mb="s8" preset="paragraphLarge" marginBottom="s40">
+        Digite seu e-mail e senha para entrar
+      </Text>
 
-        <TextInput
-          label="E-mail"
-          placeholder="Digite seu e-mail"
-          boxProps={{ mb: 's20' }}
-        />
+      <TextInput
+        label="E-mail"
+        placeholder="Digite seu e-mail"
+        boxProps={{ mb: 's20' }}
+      />
 
-        <TextInput
-          RightComponent={
-            <TouchableOpacityBox onPress={togglePasswordVisibility}>
-              <Icon
-                name={isPasswordVisible ? 'eyeOff' : 'eyeOn'}
-                color="gray2"
-              />
-            </TouchableOpacityBox>
-          }
-          value={passwordValue}
-          secureTextEntry={!isPasswordVisible}
-          onChangeText={handlePasswordChange}
-          label="Senha"
-          placeholder="Digite sua senha"
-          boxProps={{ mb: 's10' }}
-        />
+      <PasswordInput
+        label="Senha"
+        placeholder="Digite sua senha"
+        boxProps={{ mb: 's8' }}
+      />
 
-        <Text color="primary" preset="paragraphSmall" bold>
-          Esqueci minha senha
-        </Text>
+      <Text
+        onPress={navigationToForgotPassword}
+        preset="paragraphSmall"
+        bold
+        color="primary"
+        mb="s40"
+      >
+        Esqueci minha senha
+      </Text>
 
-        <Button marginTop="s48" title="Entrar" />
-        <Button preset="outline" marginTop="s12" title="Criar uma conta" />
-      </Box>
+      <Button marginTop="s48" title="Entrar" />
+      <Button
+        onPress={navigationToSignUp}
+        preset="outline"
+        marginTop="s12"
+        title="Criar uma conta"
+      />
     </Screen>
   );
 }

@@ -1,77 +1,64 @@
-import React, { useState } from 'react';
-import { Box, TouchableOpacityBox } from '../../../components/Box/Box';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
 import { Button } from '../../../components/Button/Button';
-import { Icon } from '../../../components/Icon/Icon';
+import { PasswordInput } from '../../../components/PasswordInput/PasswordInput';
 import { Screen } from '../../../components/Screen/Screen';
 import { Text } from '../../../components/Text/Text';
 import { TextInput } from '../../../components/TextInput/TextInput';
+import { useResetNavigationSuccess } from '../../../hooks/useResetNavigationSuccess';
+import { RootStackParamList } from '../../../routes/Routes';
 
-export function SignUpScreen() {
-  const [passwordValue, setPasswordValue] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
-  function handlePasswordChange(text: string) {
-    console.log('password input:', text);
-    setPasswordValue(text);
-  }
-
-  function togglePasswordVisibility() {
-    setIsPasswordVisible(prev => !prev);
-  }
-
+export function SignUpScreen(props: ScreenProps) {
+  const { reset } = useResetNavigationSuccess();
   function handleSubmit() {
-    //Todo: implement sign up logic
+    reset({
+      title: 'Sua conta foi criada com sucesso!',
+      description: 'Agora é só fazer login na nossa plataforma',
+      icon: {
+        name: 'checkRoundIcon',
+        color: 'success',
+      },
+    });
   }
 
   return (
-    <Screen canGoBack scrollable>
-      <Box paddingHorizontal="s24">
-        <Text preset="headingLarge" marginBottom="s32">
-          Criar uma conta
-        </Text>
+    <Screen canGoBack scrollable paddingHorizontal="s24">
+      <Text preset="headingLarge" marginBottom="s32">
+        Criar uma conta
+      </Text>
 
-        <TextInput
-          label="Seu username"
-          placeholder="@"
-          boxProps={{ mb: 's20' }}
-        />
+      <TextInput
+        label="Seu username"
+        placeholder="@"
+        boxProps={{ mb: 's20' }}
+      />
 
-        <TextInput
-          label="Nome completo"
-          placeholder="Digite seu nome completo"
-          boxProps={{ mb: 's20' }}
-        />
+      <TextInput
+        label="Nome completo"
+        placeholder="Digite seu nome completo"
+        boxProps={{ mb: 's20' }}
+      />
 
-        <TextInput
-          label="E-mail"
-          placeholder="Digite seu e-mail"
-          boxProps={{ mb: 's20' }}
-        />
+      <TextInput
+        label="E-mail"
+        placeholder="Digite seu e-mail"
+        boxProps={{ mb: 's20' }}
+      />
 
-        <TextInput
-          RightComponent={
-            <TouchableOpacityBox onPress={togglePasswordVisibility}>
-              <Icon
-                name={isPasswordVisible ? 'eyeOff' : 'eyeOn'}
-                color="gray2"
-              />
-            </TouchableOpacityBox>
-          }
-          value={passwordValue}
-          secureTextEntry={!isPasswordVisible}
-          onChangeText={handlePasswordChange}
-          label="Senha"
-          placeholder="Digite sua senha"
-          boxProps={{ mb: 's48' }}
-        />
+      <PasswordInput
+        label="Senha"
+        placeholder="Digite sua nova senha"
+        boxProps={{ mb: 's48' }}
+      />
 
-        <Button
-          onPress={handleSubmit}
-          preset="primary"
-          marginTop="s12"
-          title="Criar uma conta"
-        />
-      </Box>
+      <Button
+        onPress={handleSubmit}
+        preset="primary"
+        marginTop="s12"
+        title="Criar uma conta"
+      />
     </Screen>
   );
 }

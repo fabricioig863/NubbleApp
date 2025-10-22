@@ -1,4 +1,5 @@
 import React from 'react';
+import { Pressable } from 'react-native';
 import { ArrowLeftIcon } from '../../assets/icons/ArrowLeftIcon';
 import { ArrowRightIcon } from '../../assets/icons/ArrowRightIcon';
 import { BellIcon } from '../../assets/icons/BellIcon';
@@ -9,8 +10,10 @@ import { CameraIcon } from '../../assets/icons/CameraIcon';
 import { ChatIcon } from '../../assets/icons/ChatIcon';
 import { ChatOnIcon } from '../../assets/icons/ChatOnIcon';
 import { CheckIcon } from '../../assets/icons/CheckIcon';
+import { CheckRoundIcon } from '../../assets/icons/CheckRound';
 import { ChevronRightIcon } from '../../assets/icons/ChevronRightIcon';
 import { CommentIcon } from '../../assets/icons/CommentIcon';
+import { ErrorIcon } from '../../assets/icons/ErrorIcon';
 import { EyeOffIcon } from '../../assets/icons/EyeOffIcon';
 import { EyeOnIcon } from '../../assets/icons/EyeOnIcon';
 import { FlashOffIcon } from '../../assets/icons/FlashOffIcon';
@@ -20,6 +23,8 @@ import { HeartIcon } from '../../assets/icons/HeartIcon';
 import { HomeFillIcon } from '../../assets/icons/HomeFillIcon';
 import { HomeIcon } from '../../assets/icons/HomeIcon';
 import { MessageIcon } from '../../assets/icons/MessageIcon';
+import { MessageRoundIcon } from '../../assets/icons/MessageRoundIcon';
+import { MessageRoundLight } from '../../assets/icons/MessageRoundLight';
 import { NewPostIcon } from '../../assets/icons/NewPostIcon';
 import { ProfileFillIcon } from '../../assets/icons/ProfileFillIcon';
 import { ProfileIcon } from '../../assets/icons/ProfileIcon';
@@ -34,14 +39,28 @@ export interface IconBase {
   color?: string;
 }
 
-interface Props {
+export interface IconProps {
   name: IconName;
   color?: ThemeColors;
   size?: number;
+  onPress?: () => void;
 }
-export function Icon({ name, color = 'backgroundContrast', size }: Props) {
+export function Icon({
+  name,
+  color = 'backgroundContrast',
+  size,
+  onPress,
+}: IconProps) {
   const { colors } = useAppThemeColor();
   const SVGIcon = iconRegistry[name];
+
+  if (onPress) {
+    return (
+      <Pressable hitSlop={10} onPress={onPress}>
+        <SVGIcon color={colors[color]} size={size} />
+      </Pressable>
+    );
+  }
 
   return <SVGIcon color={colors[color]} size={size} />;
 }
@@ -74,6 +93,10 @@ const iconRegistry = {
   search: SearchIcon,
   settings: SettingsIcon,
   trash: TrashIcon,
+  checkRoundIcon: CheckRoundIcon,
+  errorIcon: ErrorIcon,
+  messageRoundIcon: MessageRoundIcon,
+  messageRoundLight: MessageRoundLight,
 };
 
 type IconType = typeof iconRegistry;

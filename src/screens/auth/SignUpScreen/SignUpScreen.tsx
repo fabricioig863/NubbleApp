@@ -6,11 +6,12 @@ import { Screen } from '../../../components/Screen/Screen';
 import { Text } from '../../../components/Text/Text';
 import { TextInput } from '../../../components/TextInput/TextInput';
 
-export function LoginScreen() {
+export function SignUpScreen() {
   const [passwordValue, setPasswordValue] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   function handlePasswordChange(text: string) {
+    console.log('password input:', text);
     setPasswordValue(text);
   }
 
@@ -18,13 +19,28 @@ export function LoginScreen() {
     setIsPasswordVisible(prev => !prev);
   }
 
+  function handleSubmit() {
+    //Todo: implement sign up logic
+  }
+
   return (
-    <Screen scrollable>
+    <Screen canGoBack scrollable>
       <Box paddingHorizontal="s24">
-        <Text preset="headingLarge">Olá!</Text>
-        <Text mb="s8" preset="paragraphLarge" marginBottom="s40">
-          Digite seu e-mail e senha para entrar
+        <Text preset="headingLarge" marginBottom="s32">
+          Criar uma conta
         </Text>
+
+        <TextInput
+          label="Seu username"
+          placeholder="@"
+          boxProps={{ mb: 's20' }}
+        />
+
+        <TextInput
+          label="Nome completo"
+          placeholder="Digite seu nome completo"
+          boxProps={{ mb: 's20' }}
+        />
 
         <TextInput
           label="E-mail"
@@ -46,15 +62,15 @@ export function LoginScreen() {
           onChangeText={handlePasswordChange}
           label="Senha"
           placeholder="Digite sua senha"
-          boxProps={{ mb: 's10' }}
+          boxProps={{ mb: 's48' }}
         />
 
-        <Text color="primary" preset="paragraphSmall" bold>
-          Esqueci minha senha
-        </Text>
-
-        <Button marginTop="s48" title="Entrar" />
-        <Button preset="outline" marginTop="s12" title="Criar uma conta" />
+        <Button
+          onPress={handleSubmit}
+          preset="primary"
+          marginTop="s12"
+          title="Criar uma conta"
+        />
       </Box>
     </Screen>
   );

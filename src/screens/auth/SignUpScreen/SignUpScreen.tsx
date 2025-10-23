@@ -1,18 +1,35 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Button } from '../../../components/Button/Button';
-import { PasswordInput } from '../../../components/PasswordInput/PasswordInput';
+
+import { FormPasswordInput } from '../../../components/Form/FormPasswordInput';
+import { FormTextInput } from '../../../components/Form/FormTextInput';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Screen } from '../../../components/Screen/Screen';
 import { Text } from '../../../components/Text/Text';
-import { TextInput } from '../../../components/TextInput/TextInput';
 import { useResetNavigationSuccess } from '../../../hooks/useResetNavigationSuccess';
 import { RootStackParamList } from '../../../routes/Routes';
+import { SignUpSchema, signUpSchema } from './signUpSchema';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
 
-export function SignUpScreen(props: ScreenProps) {
+export function SignUpScreen({ navigation }: ScreenProps) {
   const { reset } = useResetNavigationSuccess();
-  function handleSubmit() {
+  const { control, formState, handleSubmit } = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      username: '',
+      fullName: '',
+      email: '',
+      password: '',
+    },
+    mode: 'onChange',
+  });
+  function submitForm(formValues: SignUpSchema) {
+    console.log(formValues);
     reset({
       title: 'Sua conta foi criada com sucesso!',
       description: 'Agora é só fazer login na nossa plataforma',
@@ -22,41 +39,64 @@ export function SignUpScreen(props: ScreenProps) {
       },
     });
   }
-
   return (
     <Screen canGoBack scrollable paddingHorizontal="s24">
-      <Text preset="headingLarge" marginBottom="s32">
+      <Text preset="headingLarge" mb="s32">
         Criar uma conta
       </Text>
 
-      <TextInput
+      <FormTextInput
+        control={control}
+        name="username"
+        rules={{ required: 'Username obrigatório' }}
         label="Seu username"
         placeholder="@"
         boxProps={{ mb: 's20' }}
       />
 
-      <TextInput
-        label="Nome completo"
+      <FormTextInput
+        control={control}
+        name="fullName"
+        rules={{ required: 'Nome obrigatório' }}
+        autoCapitalize="words"
+        label="Nome Completo"
         placeholder="Digite seu nome completo"
         boxProps={{ mb: 's20' }}
       />
-
-      <TextInput
+      <FormTextInput
+        control={control}
+        name="email"
+        rules={{
+          required: 'E-mail obrigatório',
+          pattern: {
+            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+            message: 'E-mail inválido',
+          },
+        }}
         label="E-mail"
         placeholder="Digite seu e-mail"
         boxProps={{ mb: 's20' }}
       />
 
-      <PasswordInput
+      <FormPasswordInput
+        control={control}
+        autoCapitalize="none"
+        name="password"
+        rules={{
+          required: 'Senha obrigatória',
+          minLength: {
+            value: 8,
+            message: 'Senha deve ter no mínimo 8 caracteres',
+          },
+        }}
         label="Senha"
-        placeholder="Digite sua nova senha"
+        placeholder="Digite sua senha"
         boxProps={{ mb: 's48' }}
       />
 
       <Button
-        onPress={handleSubmit}
-        preset="primary"
-        marginTop="s12"
+        disabled={!formState.isValid}
+        onPress={handleSubmit(submitForm)}
         title="Criar uma conta"
       />
     </Screen>

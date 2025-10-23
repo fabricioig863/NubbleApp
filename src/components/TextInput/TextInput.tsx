@@ -11,7 +11,7 @@ import { $fontFamily, $fontSizes, Text } from '../Text/Text';
 
 export interface TextInputProps extends RNTextInputProps {
   label: string;
-  errorMessage?: string;
+  errorMessage?: string | undefined;
   RightComponent?: React.ReactElement;
   boxProps?: BoxProps;
 }
@@ -46,6 +46,7 @@ export function TextInput({
         </Text>
         <Box {...$textInputContainer}>
           <RNTextInput
+            autoCapitalize="none"
             ref={inputRef}
             placeholderTextColor={colors.gray2}
             style={$textInputStyle}

@@ -1,5 +1,3 @@
-import { $fontFamily, $fontSizes, Box, BoxProps, Text } from '@components';
-import { useAppThemeColor } from '@hooks';
 import React, { useRef } from 'react';
 import {
   Pressable,
@@ -7,6 +5,11 @@ import {
   TextInputProps as RNTextInputProps,
   TextStyle,
 } from 'react-native';
+
+import { useAppThemeColor } from '@hooks';
+
+import { Box, BoxProps } from '../Box/Box';
+import { $fontFamily, $fontSizes, Text } from '../Text/Text';
 
 export interface TextInputProps extends RNTextInputProps {
   label: string;
@@ -74,5 +77,5 @@ const $textInputStyle: TextStyle = {
   flexGrow: 1,
   justifyContent: 'center',
   fontFamily: $fontFamily.regular,
-  ...$fontSizes['paragraphMedium'],
+  ...$fontSizes.paragraphMedium,
 };

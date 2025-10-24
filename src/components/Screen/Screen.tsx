@@ -1,10 +1,12 @@
-import { Theme } from '@theme';
 import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { Box, Icon, Text, TouchableOpacityBox } from '@components';
 import { useAppSafeArea, useAppThemeColor } from '@hooks';
-import { useNavigation } from '@react-navigation/native';
+import { Theme } from '@theme';
+
 import {
   ScrollViewContainer,
   ViewContainer,

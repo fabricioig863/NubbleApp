@@ -1,9 +1,11 @@
-import { useAppThemeColor } from '@hooks';
 import React from 'react';
 import {
   ActivityIndicator as RNActivityIndicator,
   ActivityIndicatorProps as RNActivityIndicatorProps,
 } from 'react-native';
+
+import { useAppThemeColor } from '@hooks';
+
 import { ThemeColors } from '../../theme/theme';
 
 interface ActivityIndicatorProps

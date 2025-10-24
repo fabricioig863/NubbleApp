@@ -2,6 +2,10 @@ module.exports = {
   root: true,
   extends: '@react-native',
   plugins: ['import'],
+  rules: {
+    'react/no-unstable-nested-components': 'off',
+    'react-native/no-inline-styles': 'off',
+  },
   overrides: [
     {
       files: ['*.ts', '*.tsx'],

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useForm } from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useForm} from 'react-hook-form';
 
 import {
   Button,
@@ -11,16 +10,14 @@ import {
   Screen,
   Text,
 } from '@components';
-import { useResetNavigationSuccess } from '@hooks';
-import { RootStackParamList } from '@routes';
+import {useResetNavigationSuccess} from '@hooks';
+import {AuthScreenProps} from '@routes';
 
-import { SignUpSchema, signUpSchema } from './signUpSchema';
+import {SignUpSchema, signUpSchema} from './signUpSchema';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>;
-
-export function SignUpScreen({}: ScreenProps) {
-  const { reset } = useResetNavigationSuccess();
-  const { control, formState, handleSubmit } = useForm<SignUpSchema>({
+export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
+  const {reset} = useResetNavigationSuccess();
+  const {control, formState, handleSubmit} = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: '',
@@ -50,20 +47,20 @@ export function SignUpScreen({}: ScreenProps) {
       <FormTextInput
         control={control}
         name="username"
-        rules={{ required: 'Username obrigatório' }}
+        rules={{required: 'Username obrigatório'}}
         label="Seu username"
         placeholder="@"
-        boxProps={{ mb: 's20' }}
+        boxProps={{mb: 's20'}}
       />
 
       <FormTextInput
         control={control}
         name="fullName"
-        rules={{ required: 'Nome obrigatório' }}
+        rules={{required: 'Nome obrigatório'}}
         autoCapitalize="words"
         label="Nome Completo"
         placeholder="Digite seu nome completo"
-        boxProps={{ mb: 's20' }}
+        boxProps={{mb: 's20'}}
       />
       <FormTextInput
         control={control}
@@ -77,7 +74,7 @@ export function SignUpScreen({}: ScreenProps) {
         }}
         label="E-mail"
         placeholder="Digite seu e-mail"
-        boxProps={{ mb: 's20' }}
+        boxProps={{mb: 's20'}}
       />
 
       <FormPasswordInput
@@ -93,7 +90,7 @@ export function SignUpScreen({}: ScreenProps) {
         }}
         label="Senha"
         placeholder="Digite sua senha"
-        boxProps={{ mb: 's48' }}
+        boxProps={{mb: 's48'}}
       />
 
       <Button

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useForm } from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useForm} from 'react-hook-form';
 
 import {
   Button,
@@ -11,17 +10,12 @@ import {
   Screen,
   Text,
 } from '@components';
-import { RootStackParamList } from '@routes';
+import {AuthScreenProps} from '@routes';
 
-import { LoginSchema, loginSchema } from './loginSchema';
+import {LoginSchema, loginSchema} from './loginSchema';
 
-type NavigationProps = NativeStackScreenProps<
-  RootStackParamList,
-  'LoginScreen'
->;
-
-export function LoginScreen({ navigation }: NavigationProps) {
-  const { control, formState, handleSubmit } = useForm<LoginSchema>({
+export function LoginScreen({navigation}: AuthScreenProps<'LoginScreen'>) {
+  const {control, formState, handleSubmit} = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -61,16 +55,16 @@ export function LoginScreen({ navigation }: NavigationProps) {
         }}
         label="E-mail"
         placeholder="Digite seu e-mail"
-        boxProps={{ mb: 's20' }}
+        boxProps={{mb: 's20'}}
       />
 
       <FormPasswordInput
         control={control}
         name="password"
-        rules={{ required: 'Senha obrigatória' }}
+        rules={{required: 'Senha obrigatória'}}
         label="Senha"
         placeholder="Digite sua senha"
-        boxProps={{ mb: 's12' }}
+        boxProps={{mb: 's12'}}
       />
 
       <Text
@@ -78,8 +72,7 @@ export function LoginScreen({ navigation }: NavigationProps) {
         preset="paragraphSmall"
         bold
         color="primary"
-        mb="s40"
-      >
+        mb="s40">
         Esqueci minha senha
       </Text>
 

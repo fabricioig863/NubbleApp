@@ -1,13 +1,10 @@
+import { Theme } from '@theme';
 import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
-import { Theme } from '../../theme/theme';
 
+import { Box, Icon, Text, TouchableOpacityBox } from '@components';
+import { useAppSafeArea, useAppThemeColor } from '@hooks';
 import { useNavigation } from '@react-navigation/native';
-import { useAppSafeArea } from '../../hooks/useAppSafeAre';
-import { useAppThemeColor } from '../../hooks/useAppThemeColor';
-import { Box, TouchableOpacityBox } from '../Box/Box';
-import { Icon } from '../Icon/Icon';
-import { Text } from '../Text/Text';
 import {
   ScrollViewContainer,
   ViewContainer,

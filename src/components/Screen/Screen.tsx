@@ -1,18 +1,18 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-import { Box, Icon, Text, TouchableOpacityBox } from '@components';
-import { useAppSafeArea, useAppThemeColor } from '@hooks';
-import { Theme } from '@theme';
+import {Box, BoxProps, Icon, Text, TouchableOpacityBox} from '@components';
+import {useAppSafeArea, useAppThemeColor} from '@hooks';
+import {Theme} from '@theme';
 
 import {
   ScrollViewContainer,
   ViewContainer,
 } from './components/ScreenContainer/ScreenContainer';
 
-interface ScreenProps {
+interface ScreenProps extends BoxProps {
   children: React.ReactNode;
   canGoBack?: boolean;
   scrollable?: boolean;
@@ -23,31 +23,28 @@ export function Screen({
   children,
   canGoBack = false,
   scrollable = false,
-  paddingHorizontal,
+  style,
+  ...boxProps
 }: ScreenProps) {
-  const { bottom, top } = useAppSafeArea();
-  const { colors } = useAppThemeColor();
+  const {bottom, top} = useAppSafeArea();
+  const {colors} = useAppThemeColor();
 
   const navigation = useNavigation();
 
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Container backgroundColor={colors.background}>
         <Box
-          paddingBottom="s24"
-          paddingHorizontal={paddingHorizontal}
-          style={{ paddingTop: top, paddingBottom: bottom }}
-        >
+          style={[{paddingTop: top, paddingBottom: bottom}, style]}
+          {...boxProps}>
           {canGoBack && (
             <TouchableOpacityBox
               onPress={navigation.goBack}
               mb="s24"
-              flexDirection="row"
-            >
+              flexDirection="row">
               <Icon name="arrowLeft" color="primary" />
               <Text preset="paragraphMedium" semiBold ml="s8">
                 Voltar

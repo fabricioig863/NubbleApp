@@ -1,9 +1,12 @@
+import {PageAPI} from '@api';
+
+import {ApiPost, postAdapter} from './postAdapter';
 import {postApi} from './postApi';
-import {Post} from './types';
+import {Post} from './postTypes';
 
 async function getList(): Promise<Post[]> {
-  const postList = await postApi.getList();
-  return postList;
+  const apiResponse: PageAPI<ApiPost> = await postApi.getList();
+  return postAdapter.toPostList(apiResponse);
 }
 
 export const postService = {

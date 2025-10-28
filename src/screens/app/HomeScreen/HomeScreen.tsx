@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
 
 import {Post, postService} from '@domain';
@@ -11,13 +11,18 @@ import {HomeHeader} from './components/HomeHeader';
 export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   const [postList, setPostList] = useState<Post[]>([]);
 
+  const fetchPostList = async () => {
+    const list = await postService.getList();
+    setPostList(list);
+  };
+
   useEffect(() => {
-    postService.getList().then(list => setPostList(list));
+    fetchPostList();
   }, []);
 
-  function renderItem({item}: ListRenderItemInfo<Post>) {
+  const renderItem = useCallback(({item}: ListRenderItemInfo<Post>) => {
     return <PostItem post={item} />;
-  }
+  }, []);
 
   return (
     <Screen style={$screen}>

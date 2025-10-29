@@ -1,5 +1,3 @@
-import {PageAPI} from '@api';
-
 import {Post} from './postTypes';
 
 // Tipos da API (DTO - Data Transfer Object)
@@ -51,10 +49,6 @@ function toPost(apiPost: ApiPost): Post {
   };
 }
 
-function toPostList(apiResponse: PageAPI<ApiPost>): Post[] {
-  return apiResponse.data.map(toPost);
-}
-
 export const postAdapter = {
-  toPostList,
+  toPost,
 };

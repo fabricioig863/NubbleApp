@@ -1,24 +1,22 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
+import React, {useCallback} from 'react';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
-import {Post, postService} from '@domain';
+import {Post, usePostList} from '@domain';
 
 import {PostItem, Screen} from '@components';
 import {AppTabScreenProps} from '@routes';
 
+import {HomeEmpty} from './components/HomeEmpty';
 import {HomeHeader} from './components/HomeHeader';
 
 export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
-  const [postList, setPostList] = useState<Post[]>([]);
-
-  const fetchPostList = async () => {
-    const list = await postService.getList();
-    setPostList(list);
-  };
-
-  useEffect(() => {
-    fetchPostList();
-  }, []);
+  const {postList, error, loading, refresh, fetchNextPage} = usePostList();
 
   const renderItem = useCallback(({item}: ListRenderItemInfo<Post>) => {
     return <PostItem post={item} />;
@@ -31,7 +29,17 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
         data={postList}
         keyExtractor={item => item.id}
         renderItem={renderItem}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0.5}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
+        }
+        refreshing={loading}
+        contentContainerStyle={{flexGrow: 1}}
         ListHeaderComponent={<HomeHeader />}
+        ListEmptyComponent={
+          <HomeEmpty refetch={refresh} error={error} loading={loading} />
+        }
       />
     </Screen>
   );
@@ -41,4 +49,5 @@ const $screen: StyleProp<ViewStyle> = {
   paddingTop: 0,
   paddingBottom: 0,
   paddingHorizontal: 0,
+  flex: 1,
 };

@@ -5,6 +5,8 @@ module.exports = {
   rules: {
     'react/no-unstable-nested-components': 'off',
     'react-native/no-inline-styles': 'off',
+    'no-catch-shadow': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
   overrides: [
     {

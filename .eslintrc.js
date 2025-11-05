@@ -7,6 +7,7 @@ module.exports = {
     'react-native/no-inline-styles': 'off',
     'no-catch-shadow': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
   overrides: [
     {

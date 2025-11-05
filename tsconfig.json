@@ -43,6 +43,9 @@
       ],
       "@types": [
         "src/types"
+      ],
+      "@infra": [
+        "src/infra"
       ]
     }
   }

@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: 'http://localhost:3333',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer MTE.pT67lK-4fykAKIjS3bT1aMrw9P_RwD1EHNYYBuDhNtAfJcINoKWiKPuzugBm`,
+    Authorization: `Bearer Mg.5DX3jk_jpR1K1C4dxpr-7tb1JIdS_4Q3HG096wX9Ne4pWLtR_V9Gmb5ceHL0`,
   },
 });
 

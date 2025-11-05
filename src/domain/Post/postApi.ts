@@ -1,6 +1,6 @@
 import {PageAPI, PageParams, api} from '@api';
 
-import {ApiPost} from './postAdapter';
+import {ApiPost} from './postTypes';
 
 async function getList(params: PageParams): Promise<PageAPI<ApiPost>> {
   const response = await api.get<PageAPI<ApiPost>>('/user/post', {

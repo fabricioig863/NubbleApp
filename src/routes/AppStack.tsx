@@ -1,7 +1,7 @@
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {PostCommentScreen, SettingScreen} from '@screens';
+import {PostCommentScreen, ProfileScreen, SettingScreen} from '@screens';
 
 import {AppTabBottomTabParamList, AppTabNavigator} from './AppTabNavigator';
 
@@ -11,6 +11,9 @@ export type AppStackParamList = {
   PostCommentScreen: {
     postId: number;
     postAuthorId: number;
+  };
+  ProfileScreen: {
+    userId: number;
   };
 };
 
@@ -24,6 +27,7 @@ export function AppStack() {
       <Stack.Screen name="AppTabNavigator" component={AppTabNavigator} />
       <Stack.Screen name="SettingsScreen" component={SettingScreen} />
       <Stack.Screen name="PostCommentScreen" component={PostCommentScreen} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     </Stack.Navigator>
   );
 }

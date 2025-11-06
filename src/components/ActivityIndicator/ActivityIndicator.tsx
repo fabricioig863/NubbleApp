@@ -4,20 +4,20 @@ import {
   ActivityIndicatorProps as RNActivityIndicatorProps,
 } from 'react-native';
 
-import { useAppThemeColor } from '@hooks';
+import {useAppThemeColor} from '@hooks';
 
-import { ThemeColors } from '../../theme/theme';
+import {ThemeColors} from '../../theme/theme';
 
 interface ActivityIndicatorProps
   extends Omit<RNActivityIndicatorProps, 'color'> {
-  color: ThemeColors;
+  color?: ThemeColors;
 }
 
 export function ActivityIndicator({
   color = 'primary',
   ...activityIndicatorProps
 }: ActivityIndicatorProps) {
-  const { colors } = useAppThemeColor();
+  const {colors} = useAppThemeColor();
   return (
     <RNActivityIndicator color={colors[color]} {...activityIndicatorProps} />
   );

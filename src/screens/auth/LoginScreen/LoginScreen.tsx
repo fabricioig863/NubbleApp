@@ -1,6 +1,8 @@
 import React from 'react';
 
+import {useAuthSignIn} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
 import {
@@ -15,6 +17,8 @@ import {AuthScreenProps} from '@routes';
 import {LoginSchema, loginSchema} from './loginSchema';
 
 export function LoginScreen({navigation}: AuthScreenProps<'LoginScreen'>) {
+  const {showToast} = useToastService();
+
   const {control, formState, handleSubmit} = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -24,8 +28,20 @@ export function LoginScreen({navigation}: AuthScreenProps<'LoginScreen'>) {
     mode: 'onChange',
   });
 
+  const {signIn, isLoading} = useAuthSignIn({
+    onError: (message: string) => {
+      showToast({
+        message,
+        type: 'error',
+      });
+    },
+  });
+
   function submitForm(data: LoginSchema) {
-    console.log(data.email, data.password);
+    signIn({
+      email: data.email,
+      password: data.password,
+    });
   }
 
   function navigationToSignUp() {
@@ -77,7 +93,8 @@ export function LoginScreen({navigation}: AuthScreenProps<'LoginScreen'>) {
       </Text>
 
       <Button
-        disabled={!formState.isValid}
+        loading={isLoading}
+        disabled={!formState.isValid || isLoading}
         onPress={handleSubmit(submitForm)}
         marginTop="s48"
         title="Entrar"

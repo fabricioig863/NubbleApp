@@ -31,6 +31,7 @@ export function PostCommentScreen({
       <PostCommentItem
         userId={id}
         postAuthorId={postAuthorId}
+        postId={postId}
         postComment={item}
         onRemoveComment={refresh}
       />
@@ -53,7 +54,7 @@ export function PostCommentScreen({
             />
           }
         />
-        <PostCommentTextMessage onAddComment={refresh} postId={postId} />
+        <PostCommentTextMessage postId={postId} />
       </Box>
     </Screen>
   );

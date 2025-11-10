@@ -9,6 +9,7 @@ interface Props {
   postComment: PostComment;
   userId: number;
   postAuthorId: number;
+  postId: number;
   onRemoveComment: () => void;
 }
 
@@ -16,15 +17,16 @@ export function PostCommentItem({
   postComment,
   onRemoveComment,
   postAuthorId,
+  postId,
   userId,
 }: Props) {
   const {showToast} = useToastService();
-  const {mutate} = usePostCommentRemove({
+  const {removeComment} = usePostCommentRemove(postId, {
     onSuccess: () => {
       onRemoveComment();
       showToast({
         message: 'Comentário deletado',
-        duration: 5000,
+        duration: 2500,
         type: 'success',
       });
     },
@@ -40,7 +42,7 @@ export function PostCommentItem({
     Alert.alert('Deseja excluir o comentário?', 'pressione confirmar', [
       {
         text: 'Confirmar',
-        onPress: () => mutate({postCommentId: postComment.id}),
+        onPress: () => removeComment(postComment.id),
       },
       {
         text: 'Cancelar',

@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
-  extends: '@react-native',
-  plugins: ['import'],
+  extends: ['@react-native', 'plugin:@tanstack/query/recommended'],
+  plugins: ['import', '@tanstack/query'],
   rules: {
     'react/no-unstable-nested-components': 'off',
     'react-native/no-inline-styles': 'off',

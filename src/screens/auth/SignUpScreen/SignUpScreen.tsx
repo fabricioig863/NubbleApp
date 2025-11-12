@@ -1,9 +1,11 @@
 import React from 'react';
 
+import {useAuthIsUsernameAvailable, useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
 import {
+  ActivityIndicator,
   Button,
   FormPasswordInput,
   FormTextInput,
@@ -11,35 +13,51 @@ import {
   Text,
 } from '@components';
 import {useResetNavigationSuccess} from '@hooks';
-import {AuthScreenProps} from '@routes';
+import {AuthScreenProps, AuthStackParamList} from '@routes';
 
-import {SignUpSchema, signUpSchema} from './signUpSchema';
+import {signUpSchema, SignUpSchema} from './signUpSchema';
+
+const resetParam: AuthStackParamList['SuccessScreen'] = {
+  title: 'Sua conta foi criada com sucesso!',
+  description: 'Agora é só fazer login na nossa plataforma',
+  icon: {
+    name: 'checkRoundIcon',
+    color: 'success',
+  },
+};
+
+const defaultValues: SignUpSchema = {
+  username: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+};
 
 export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
   const {reset} = useResetNavigationSuccess();
-  const {control, formState, handleSubmit} = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      username: '',
-      fullName: '',
-      email: '',
-      password: '',
+
+  const {signUp, isLoading} = useAuthSignUp({
+    onSuccess: () => {
+      reset(resetParam);
     },
+  });
+
+  const {control, formState, handleSubmit, watch} = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues,
     mode: 'onChange',
   });
+
   function submitForm(formValues: SignUpSchema) {
-    console.log(formValues);
-    reset({
-      title: 'Sua conta foi criada com sucesso!',
-      description: 'Agora é só fazer login na nossa plataforma',
-      icon: {
-        name: 'checkRoundIcon',
-        color: 'success',
-      },
-    });
+    signUp(formValues);
   }
+
+  const username = watch('username');
+  const usernameQuery = useAuthIsUsernameAvailable({username});
+
   return (
-    <Screen canGoBack scrollable paddingHorizontal="s24">
+    <Screen paddingHorizontal="s24" canGoBack scrollable>
       <Text preset="headingLarge" mb="s32">
         Criar uma conta
       </Text>
@@ -47,31 +65,35 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
       <FormTextInput
         control={control}
         name="username"
-        rules={{required: 'Username obrigatório'}}
         label="Seu username"
         placeholder="@"
         boxProps={{mb: 's20'}}
+        RightComponent={
+          usernameQuery.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormTextInput
         control={control}
-        name="fullName"
-        rules={{required: 'Nome obrigatório'}}
+        name="firstName"
         autoCapitalize="words"
-        label="Nome Completo"
-        placeholder="Digite seu nome completo"
+        label="Nome"
+        placeholder="Digite seu nome"
+        boxProps={{mb: 's20'}}
+      />
+      <FormTextInput
+        control={control}
+        name="lastName"
+        autoCapitalize="words"
+        label="Sobrenome"
+        placeholder="Digite seu sobrenome"
         boxProps={{mb: 's20'}}
       />
       <FormTextInput
         control={control}
         name="email"
-        rules={{
-          required: 'E-mail obrigatório',
-          pattern: {
-            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            message: 'E-mail inválido',
-          },
-        }}
         label="E-mail"
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}
@@ -79,21 +101,14 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
 
       <FormPasswordInput
         control={control}
-        autoCapitalize="none"
         name="password"
-        rules={{
-          required: 'Senha obrigatória',
-          minLength: {
-            value: 8,
-            message: 'Senha deve ter no mínimo 8 caracteres',
-          },
-        }}
         label="Senha"
         placeholder="Digite sua senha"
         boxProps={{mb: 's48'}}
       />
 
       <Button
+        loading={isLoading}
         disabled={!formState.isValid}
         onPress={handleSubmit(submitForm)}
         title="Criar uma conta"

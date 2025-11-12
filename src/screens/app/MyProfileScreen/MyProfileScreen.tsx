@@ -1,11 +1,14 @@
 import React from 'react';
 
 import {useNavigation} from '@react-navigation/native';
+import {useAuthCredentials} from '@services';
 
-import {Button, Screen, Text} from '@components';
+import {Box, Icon, Screen, Text} from '@components';
 
 export function MyProfileScreen() {
   const navigation = useNavigation();
+  const {authCredentials} = useAuthCredentials();
+  const name = authCredentials?.user.fullName;
 
   function toNavigationSettings() {
     navigation.navigate('SettingsScreen');
@@ -13,8 +16,13 @@ export function MyProfileScreen() {
 
   return (
     <Screen paddingHorizontal="s24">
-      <Text preset="headingSmall">My Profile Screen</Text>
-      <Button onPress={toNavigationSettings} title="Vai pra lá" />
+      <Box
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center">
+        {name && <Text preset="headingMedium">{name}</Text>}
+        <Icon name="settings" onPress={toNavigationSettings} />
+      </Box>
     </Screen>
   );
 }

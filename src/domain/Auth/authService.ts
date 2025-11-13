@@ -1,8 +1,14 @@
 import {api} from '@api';
+import {isAxiosError} from 'axios';
 
 import {authAdapter} from './authAdapter';
 import {authApi} from './authApi';
 import {AuthCredentials, SignUpData} from './authType';
+
+interface ApiErrorResponse {
+  message?: string;
+  errors?: Array<{message: string}>;
+}
 
 async function signIn(
   email: string,
@@ -44,8 +50,40 @@ async function isEmailAvailable(email: string): Promise<boolean> {
 }
 
 async function requestNewPassword(email: string): Promise<string> {
-  const {message} = await authApi.ForgotPassword({email});
-  return message;
+  try {
+    const {message} = await authApi.ForgotPassword({email});
+    return message;
+  } catch (error) {
+    throw new Error(mapForgotPasswordError(error));
+  }
+}
+
+function mapForgotPasswordError(error: unknown): string {
+  if (!isAxiosError(error)) {
+    return 'Não foi possível enviar o e-mail de recuperação';
+  }
+
+  const status = error.response?.status;
+  const data = error.response?.data as ApiErrorResponse | undefined;
+  const apiMessage =
+    data?.message ||
+    (Array.isArray(data?.errors) ? data.errors[0]?.message : undefined);
+
+  const statusMessages: Record<number, string> = {
+    401: 'E-mail não encontrado',
+    404: 'E-mail não encontrado',
+    429: 'Muitas tentativas. Aguarde e tente novamente.',
+  };
+
+  if (status && statusMessages[status]) {
+    return statusMessages[status];
+  }
+
+  if (apiMessage === 'User not found') {
+    return 'E-mail não encontrado';
+  }
+
+  return apiMessage || 'Não foi possível enviar o e-mail de recuperação';
 }
 
 export const authService = {

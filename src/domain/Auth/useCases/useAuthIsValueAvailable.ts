@@ -61,6 +61,6 @@ export function useAuthIsEmailAvailable({
     value: email,
     enabled,
     isAvailableFunc: authService.isEmailAvailable,
-    queryKey: QueryKeys.IsUsernameAvailable,
+    queryKey: QueryKeys.IsEmailAvailable,
   });
 }

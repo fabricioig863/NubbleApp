@@ -86,6 +86,13 @@ function mapForgotPasswordError(error: unknown): string {
   return apiMessage || 'Não foi possível enviar o e-mail de recuperação';
 }
 
+async function authenticateByRefreshToken(
+  refreshToken: string,
+): Promise<AuthCredentials> {
+  const acAPI = await authApi.refreshToken(refreshToken);
+  return authAdapter.toAuthCredentials(acAPI);
+}
+
 export const authService = {
   signIn,
   signOut,
@@ -95,4 +102,5 @@ export const authService = {
   isUserNameAvailable,
   isEmailAvailable,
   requestNewPassword,
+  authenticateByRefreshToken,
 };

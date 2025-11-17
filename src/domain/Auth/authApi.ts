@@ -13,7 +13,7 @@ async function signIn(
   email: string,
   password: string,
 ): Promise<AuthCredentialsAPI> {
-  const response = await api.post('login', {
+  const response = await api.post('auth/login', {
     email,
     password,
   });
@@ -21,19 +21,19 @@ async function signIn(
 }
 
 async function signUp(data: SignUpData): Promise<UserAPI> {
-  const response = await api.post<UserAPI>('register', data);
+  const response = await api.post<UserAPI>('auth/register', data);
   return response.data;
 }
 
 async function signOut(): Promise<string> {
-  const response = await api.get('profile/logout');
+  const response = await api.get('auth/profile/logout');
   return response.data;
 }
 
 async function IsUserNameAvailable(params: {
   username: string;
 }): Promise<FieldIsAvailableAPI> {
-  const response = await api.get('validate-username', {
+  const response = await api.get('auth/validate-username', {
     params,
   });
 
@@ -43,7 +43,7 @@ async function IsUserNameAvailable(params: {
 async function isEmailAvailable(params: {
   email: string;
 }): Promise<FieldIsAvailableAPI> {
-  const response = await api.get<FieldIsAvailableAPI>('validate-email', {
+  const response = await api.get<FieldIsAvailableAPI>('auth/validate-email', {
     params,
   });
   return response.data;
@@ -52,7 +52,17 @@ async function isEmailAvailable(params: {
 async function ForgotPassword(
   params: ForgotPasswordParam,
 ): Promise<{message: string}> {
-  const response = await api.post<{message: string}>('forgot-password', params);
+  const response = await api.post<{message: string}>(
+    'auth/forgot-password',
+    params,
+  );
+  return response.data;
+}
+
+async function refreshToken(token: string): Promise<AuthCredentialsAPI> {
+  const response = await api.post<AuthCredentialsAPI>('auth/refresh-token', {
+    refreshToken: token,
+  });
   return response.data;
 }
 
@@ -63,4 +73,5 @@ export const authApi = {
   IsUserNameAvailable,
   isEmailAvailable,
   ForgotPassword,
+  refreshToken,
 };

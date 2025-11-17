@@ -7,6 +7,8 @@ function toAuthCredentials(
 ): AuthCredentials {
   return {
     token: authcredentialsAPI.auth.token,
+    tokenExpiresAt: authcredentialsAPI.auth.expires_at,
+    refreshToken: authcredentialsAPI.auth.refreshToken,
     user: userAdapter.toUser(authcredentialsAPI.user),
   };
 }

@@ -1,4 +1,4 @@
-import {differenceInSeconds, format, parseISO} from 'date-fns';
+import {differenceInSeconds, format, isValid, parseISO} from 'date-fns';
 import {ptBR} from 'date-fns/locale';
 
 type TimeUnit = {
@@ -19,7 +19,13 @@ const TIME_UNITS: TimeUnit[] = [
 function formatRelative(dateISO: string): string {
   try {
     const date = parseISO(dateISO);
-    const now = new Date();
+
+    // Valida se a data é válida
+    if (!isValid(date)) {
+      return 'Data inválida';
+    }
+
+    const now = Date.now();
     const diffInSeconds = differenceInSeconds(now, date);
 
     // Validação de datas futuras
@@ -38,7 +44,6 @@ function formatRelative(dateISO: string): string {
     // Se passou de um ano
     return format(date, 'dd/MM/yyyy', {locale: ptBR});
   } catch (error) {
-    console.error('Error formatting date:', error);
     return 'Data inválida';
   }
 }

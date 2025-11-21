@@ -46,6 +46,9 @@
       ],
       "@infra": [
         "src/infra"
+      ],
+      "test-utils": [
+        "src/test/test-utils"
       ]
     }
   }

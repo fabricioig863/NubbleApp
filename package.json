@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "setup-ios": "rm -rf Pods Podfile.lock && cd ios && pod install",
-    "test": "jest",
+    "test": "jest --verbose",
+    "coverage": "jest --verbose --coverage",
     "prepare": "husky",
     "art:3333": "adb reverse tcp:3333 tcp:3333"
   },

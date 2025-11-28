@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-import { Icon, TextInput, TextInputProps } from '@components';
+import {Icon, TextInput, TextInputProps} from '@components';
 
 export type PasswordInputProps = Omit<
   TextInputProps,
@@ -16,7 +16,7 @@ export function PasswordInput(props: PasswordInputProps) {
 
   return (
     <TextInput
-      secureTextEntry={!isSecureTextEntry}
+      secureTextEntry={isSecureTextEntry}
       {...props}
       RightComponent={
         <Icon

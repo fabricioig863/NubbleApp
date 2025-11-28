@@ -47,6 +47,9 @@
       "@infra": [
         "src/infra"
       ],
+      "@test": [
+        "src/test"
+      ],
       "test-utils": [
         "src/test/test-utils"
       ]

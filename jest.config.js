@@ -5,6 +5,10 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation)/)',
   ],
-  setupFiles: ['<rootDir>/__mocks__/react-native-mmkv.ts'],
+  setupFiles: [
+    '<rootDir>/__mocks__/react-native-mmkv.ts',
+    '<rootDir>/src/test/jestSetup.ts',
+  ],
   moduleDirectories: ['node_modules', './src/test'],
+  modulePathIgnorePatterns: ['.*/mockedData/.*'],
 };
